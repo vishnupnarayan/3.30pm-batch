@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+<button onclick="clickme()">click me</button>    
+<table>
+        <thead>
+            <td>ID</td>
+            <td>title</td>
+            <td>completed</td>
+        </thead>
+        <tbody id="tbody">
+
+        </tbody>
+    </table>
+    <script>
+        function clickme()
+        {
+        var xhr=new XMLHttpRequest()
+        xhr.open('get',"https://jsonplaceholder.typicode.com/todos",true)
+        xhr.send()
+        
+        xhr.onreadystatechange=function(){
+            
+            var htmlstr="";
+            // console.log(xhr.readyState)
+            if (xhr.readyState==4){
+                if(xhr.status==200){
+                    // console.log(xhr.status)
+            var data=JSON.parse(xhr.responseText)
+            // console.log(data)
+            for( i=0;i<data.length;i++){
+                var current_data=data[i]
+                htmlstr=htmlstr+"<tr><td>"+current_data.id+"</td><td>"+current_data.title+"</td><td>"+current_data.completed+"</td></tr>"
+            document.getElementById("tbody").innerHTML=htmlstr
+            }
+            }
+            else{
+                alert("error")
+            }
+        }
+        }
+    }
+    </script>
+</body>
+</html>
